@@ -51,3 +51,20 @@ const express = require("express");
  app.listen(port, ()=>{
     console.log(`servidor rodando em http://localhost:${port}`)
   })
+
+  app.post("/imc",(req,res) =>{
+    const{nota,media} = req.body
+   
+    if(!media ||media){
+        return res.status(404).json({erro: "dados inconpletos"})
+
+        express.json({
+         nota,
+         media,   
+        })
+    }
+    
+    })
+
+
+
