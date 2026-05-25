@@ -1,12 +1,14 @@
 
 
 const express = require("express");
- const fs = require("fs"); 
+const fs = require("fs");
+ const cors = require("cors"); 
 
  const app = express();
  const port = 3000; 
  
  app.use(express.json());
+ app.use(cors());
 
 
 //http://localhost:3000/saudacao?nome=lucas
@@ -52,16 +54,21 @@ const express = require("express");
     console.log(`servidor rodando em http://localhost:${port}`)
   })
 
-  app.post("/imc",(req,res) =>{
-    const{nota,media} = req.body
+  app.post("/media",(req,res) =>{
+    const{nota1,nota2} = req.body
    
-    if(!media ||media){
+    if(!nota1 ||nota2){
         return res.status(404).json({erro: "dados inconpletos"})
+    const media= (nota1 + nota2) /2;
 
-        express.json({
-         nota,
-         media,   
-        })
+    res.json({
+        nota1,
+        nota2,
+        mensagem:media>= 7 ?"aprovado":"reprovado",
+        media:parseFloat(media)
+    })
+      
+      
     }
     
     })
